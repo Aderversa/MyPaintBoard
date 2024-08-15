@@ -27,6 +27,8 @@ protected:
 
 signals:
     void pointMoved(QPointF difference);
+    void focusIn();
+    void focusOut();
 
 private:
     PointType m_type;

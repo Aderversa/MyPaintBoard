@@ -54,11 +54,13 @@ void AtomPointItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 void AtomPointItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    emit focusIn();
 }
 
 void AtomPointItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
+    emit focusOut();
 }
 
 }
