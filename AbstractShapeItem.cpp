@@ -2,8 +2,8 @@
 
 namespace ADVE{
 
-AbstractShapeItem::AbstractShapeItem(ItemType type)
-    : m_type (type)
+AbstractShapeItem::AbstractShapeItem(QAbstractGraphicsShapeItem* parent)
+    :QAbstractGraphicsShapeItem(parent)
 {
     m_pen_noSelected.setColor(QColor(0, 160, 230));
     m_pen_noSelected.setWidth(2);

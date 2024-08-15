@@ -1,6 +1,7 @@
 #include "AtomPointItem.h"
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
 
 namespace ADVE{
 
@@ -42,7 +43,7 @@ void AtomPointItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 void AtomPointItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseMoveEvent(event);
-    if (event->button() == Qt::LeftButton)
+    if (event && event->buttons() == Qt::LeftButton)
     {
         QPointF difference;
         difference.setX(event->scenePos().x() - event->lastScenePos().x());

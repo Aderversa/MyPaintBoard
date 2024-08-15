@@ -11,13 +11,23 @@ CONFIG += c++17
 SOURCES += \
     AbstractShapeItem.cpp \
     AtomPointItem.cpp \
+    CenterAndEdgePointItem.cpp \
+    CircleItem.cpp \
+    EllipseItem.cpp \
+    RectangleItem.cpp \
+    SquareItem.cpp \
     main.cpp \
     MyPaintBoard.cpp
 
 HEADERS += \
     AbstractShapeItem.h \
     AtomPointItem.h \
-    MyPaintBoard.h
+    CenterAndEdgePointItem.h \
+    CircleItem.h \
+    EllipseItem.h \
+    MyPaintBoard.h \
+    RectangleItem.h \
+    SquareItem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

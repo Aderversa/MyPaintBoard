@@ -11,21 +11,13 @@ class AbstractShapeItem : public QObject, public QAbstractGraphicsShapeItem
 {
     Q_OBJECT
 public:
-    enum ItemType {
-        Ellipse = 0,
-        Rectangle,
-        Circle,
-        Square
-    };
-    AbstractShapeItem(ItemType type);
-    ItemType getItemType() { return m_type; }
+    AbstractShapeItem(QAbstractGraphicsShapeItem* parent = nullptr);
 
 protected:
     virtual void focusInEvent(QFocusEvent* event) override;
     virtual void focusOutEvent(QFocusEvent* event) override;
 
 private:
-    ItemType m_type;
     QPen m_pen_isSelected;
     QPen m_pen_noSelected;
 };
