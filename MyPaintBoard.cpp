@@ -20,6 +20,7 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     , addSquareBtn(new QPushButton(tr("正方形"), this))
     , addRectangleBtn(new QPushButton(tr("矩形"), this))
     , addRoundedRectangleBtn(new QPushButton(tr("圆角矩形"), this))
+    , deleteItemBtn(new QPushButton(tr("删除选中的图形项"), this))
     , scene(new QGraphicsScene())
     , view(new QGraphicsView(scene))
     , primeLayout(new QVBoxLayout(this))
@@ -31,15 +32,17 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     buttonsLayout->addWidget(addSquareBtn);
     buttonsLayout->addWidget(addRectangleBtn);
     buttonsLayout->addWidget(addRoundedRectangleBtn);
+    buttonsLayout->addWidget(deleteItemBtn);
     primeLayout->addLayout(buttonsLayout);
     primeLayout->addWidget(view);
-
 
     connect(addCircleBtn, &QPushButton::clicked, this, &MyPaintBoard::addCircle);
     connect(addEllipseBtn, &QPushButton::clicked, this, &MyPaintBoard::addEllipse);
     connect(addSquareBtn, &QPushButton::clicked, this, &MyPaintBoard::addSquare);
     connect(addRectangleBtn, &QPushButton::clicked, this, &MyPaintBoard::addRectangle);
     connect(addRoundedRectangleBtn, &QPushButton::clicked, this, &MyPaintBoard::addRoundedRectangle);
+    connect(scene, &QGraphicsScene::focusItemChanged, this, &MyPaintBoard::getLastFocusItem);
+    connect(deleteItemBtn, &QPushButton::clicked, this, &MyPaintBoard::deleteFocusItem);
 
     view->show();
 }
@@ -81,6 +84,34 @@ void MyPaintBoard::addRoundedRectangle()
 {
     RoundedRectangleItem* item = new RoundedRectangleItem(QPointF(0, 0), QPointF(20, 20));
     scene->addItem(item);
+}
+
+void MyPaintBoard::deleteFocusItem()
+{
+    QGraphicsItem* item = scene->focusItem();
+    if (item) {
+        scene->removeItem(item);
+        delete item;
+    }
+    /*
+    if (lastFocusItem) {
+        scene->removeItem(lastFocusItem);
+        delete lastFocusItem;
+        lastFocusItem = nullptr;
+        scene->update();
+    }
+*/
+}
+
+void MyPaintBoard::getLastFocusItem(QGraphicsItem* newFocusItem,
+                                    QGraphicsItem* oldFocusItem,
+                                    Qt::FocusReason reason)
+{
+    Q_UNUSED(reason);
+    if (newFocusItem == nullptr)
+    {
+        lastFocusItem = oldFocusItem;
+    }
 }
 
 }

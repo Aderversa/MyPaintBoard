@@ -64,7 +64,6 @@ void CenterAndEdgePointItem::centerFocusOut()
 
 void CenterAndEdgePointItem::edgeFocusIn()
 {
-    qDebug() << "Edge Focus In";
     hideChildExcept(m_edge);
 }
 
@@ -102,7 +101,6 @@ void CenterAndEdgePointItem::focusChanged(QGraphicsItem* newFocusItem,
     {
         if (!isChildItem(newFocusItem))
         {
-            qDebug() << "hide all child";
             hideAllChild();
         }
     }

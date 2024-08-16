@@ -7,6 +7,7 @@ class QPushButton;
 class QGraphicsScene;
 class QGraphicsView;
 class QVBoxLayout;
+class QGraphicsItem;
 
 namespace ADVE {
 
@@ -23,6 +24,8 @@ private slots:
     void addSquare();
     void addRectangle();
     void addRoundedRectangle();
+    void deleteFocusItem();
+    void getLastFocusItem(QGraphicsItem* newFocusItem, QGraphicsItem* oldFocusItem, Qt::FocusReason reason);
 
 private:
     QPushButton* addCircleBtn;
@@ -30,9 +33,11 @@ private:
     QPushButton* addSquareBtn;
     QPushButton* addRectangleBtn;
     QPushButton* addRoundedRectangleBtn;
+    QPushButton* deleteItemBtn;
     QGraphicsScene* scene;
     QGraphicsView*  view;
     QVBoxLayout* primeLayout;
+    QGraphicsItem* lastFocusItem = nullptr;
 };
 
 }
