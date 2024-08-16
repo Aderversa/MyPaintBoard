@@ -3,6 +3,7 @@
 #include "SquareItem.h"
 #include "EllipseItem.h"
 #include "RectangleItem.h"
+#include "RoundedRectangleItem.h"
 
 #include <QPushButton>
 #include <QGraphicsScene>
@@ -18,6 +19,7 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     , addEllipseBtn(new QPushButton(tr("椭圆"), this))
     , addSquareBtn(new QPushButton(tr("正方形"), this))
     , addRectangleBtn(new QPushButton(tr("矩形"), this))
+    , addRoundedRectangleBtn(new QPushButton(tr("圆角矩形"), this))
     , scene(new QGraphicsScene())
     , view(new QGraphicsView(scene))
     , primeLayout(new QVBoxLayout(this))
@@ -28,6 +30,7 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     buttonsLayout->addWidget(addEllipseBtn);
     buttonsLayout->addWidget(addSquareBtn);
     buttonsLayout->addWidget(addRectangleBtn);
+    buttonsLayout->addWidget(addRoundedRectangleBtn);
     primeLayout->addLayout(buttonsLayout);
     primeLayout->addWidget(view);
 
@@ -36,6 +39,7 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     connect(addEllipseBtn, &QPushButton::clicked, this, &MyPaintBoard::addEllipse);
     connect(addSquareBtn, &QPushButton::clicked, this, &MyPaintBoard::addSquare);
     connect(addRectangleBtn, &QPushButton::clicked, this, &MyPaintBoard::addRectangle);
+    connect(addRoundedRectangleBtn, &QPushButton::clicked, this, &MyPaintBoard::addRoundedRectangle);
 
     view->show();
 }
@@ -70,6 +74,12 @@ void MyPaintBoard::addSquare()
 void MyPaintBoard::addRectangle()
 {
     RectangleItem* item = new RectangleItem(QPointF(0, 0), QPointF(20, 20));
+    scene->addItem(item);
+}
+
+void MyPaintBoard::addRoundedRectangle()
+{
+    RoundedRectangleItem* item = new RoundedRectangleItem(QPointF(0, 0), QPointF(20, 20));
     scene->addItem(item);
 }
 

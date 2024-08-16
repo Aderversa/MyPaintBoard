@@ -17,14 +17,21 @@ public:
 
 protected:
     // 函数:
-    // 使用rectPen和boundingRect()绘制Item的虚线矩形框
-    virtual void drawBoundingRect(QPainter* painter);
-    virtual void focusInEvent(QFocusEvent* event);
+    virtual void focusInEvent(QFocusEvent* event) override;
+    // 遍历所有子Item，当其指针对得上时，返回true。如果一个也对不上说明不是其子Item，返回false
+    virtual bool isChildItem(QGraphicsItem* item);
+    // 遍历所有子Item，然后调用hide()方。用户有自己想法可以重写该方法
+    virtual void hideAllChild();
+    // 遍历所有子Item，然后调用show()方法。用户有自己想法可以重写该方法
+    virtual void showAllChild();
+    // 除了某个Item之外，其他都show
+    virtual void showChildExcept(QGraphicsItem* item);
+    // 除了某个Item之外，其他都hide
+    virtual void hideChildExcept(QGraphicsItem* item);
 
     // 成员变量:
     AtomPointItem* m_center;
     AtomPointItem* m_edge;
-    QPen rectPen;
 
     QMutex focusChangedConnectedMutex;
     bool isFocusChangedConnected = false;

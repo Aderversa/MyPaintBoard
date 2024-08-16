@@ -7,6 +7,8 @@
 
 namespace ADVE {
 
+class AtomPointItem;
+
 class AbstractShapeItem : public QObject, public QAbstractGraphicsShapeItem
 {
     Q_OBJECT
@@ -16,6 +18,10 @@ public:
 protected:
     virtual void focusInEvent(QFocusEvent* event) override;
     virtual void focusOutEvent(QFocusEvent* event) override;
+    // 使用rectPen和boundingRect()绘制Item的虚线矩形框
+    virtual void drawBoundingRect(QPainter* painter);
+
+    QPen rectPen;
 
 private:
     QPen m_pen_isSelected;

@@ -15,6 +15,7 @@ SOURCES += \
     CircleItem.cpp \
     EllipseItem.cpp \
     RectangleItem.cpp \
+    RoundedRectangleItem.cpp \
     SquareItem.cpp \
     main.cpp \
     MyPaintBoard.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     EllipseItem.h \
     MyPaintBoard.h \
     RectangleItem.h \
+    RoundedRectangleItem.h \
     SquareItem.h
 
 # Default rules for deployment.

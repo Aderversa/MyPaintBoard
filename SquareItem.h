@@ -12,7 +12,7 @@ public:
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-private slots:
+protected slots:
     virtual void edgeMove(QPointF difference) override;
 };
 

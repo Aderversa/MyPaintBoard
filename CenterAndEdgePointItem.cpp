@@ -18,13 +18,11 @@ CenterAndEdgePointItem::CenterAndEdgePointItem(const QPointF& center, const QPoi
 
     m_center->setCursor(Qt::OpenHandCursor);
     m_center->setBrush(Qt::red);
-    m_center->hide();
 
     // m_edge是相对于m_center的坐标
     // 每当其坐标发生变换时
     m_edge->setCursor(Qt::PointingHandCursor);
     m_edge->setBrush(Qt::yellow);
-    m_edge->hide();
 
     rectPen.setStyle(Qt::DashLine);
     rectPen.setColor(Qt::gray);
@@ -35,6 +33,9 @@ CenterAndEdgePointItem::CenterAndEdgePointItem(const QPointF& center, const QPoi
     connect(m_center, &AtomPointItem::focusOut, this, &CenterAndEdgePointItem::centerFocusOut);
     connect(m_edge, &AtomPointItem::focusIn, this, &CenterAndEdgePointItem::edgeFocusIn);
     connect(m_edge, &AtomPointItem::focusOut, this, &CenterAndEdgePointItem::edgeFocusOut);
+
+    m_edge->hide();
+    m_center->hide();
 }
 
 
@@ -52,29 +53,27 @@ void CenterAndEdgePointItem::edgeMove(QPointF difference)
 
 void CenterAndEdgePointItem::centerFocusIn()
 {
-    m_edge->hide();
+    hideChildExcept(m_center);
 }
 
 void CenterAndEdgePointItem::centerFocusOut()
 {
+    showChildExcept(m_center);
     this->setFocus(Qt::MouseFocusReason);
 }
 
 void CenterAndEdgePointItem::edgeFocusIn()
 {
-    m_center->hide();
+    qDebug() << "Edge Focus In";
+    hideChildExcept(m_edge);
 }
 
 void CenterAndEdgePointItem::edgeFocusOut()
 {
+    showChildExcept(m_edge);
     this->setFocus(Qt::MouseFocusReason);
 }
 
-void CenterAndEdgePointItem::drawBoundingRect(QPainter* painter)
-{
-    painter->setPen(rectPen);
-    painter->drawRect(this->boundingRect());
-}
 
 void CenterAndEdgePointItem::focusInEvent(QFocusEvent* event)
 {
@@ -91,8 +90,7 @@ void CenterAndEdgePointItem::focusInEvent(QFocusEvent* event)
             isFocusChangedConnected = true;
         }
     }
-    m_center->show();
-    m_edge->show();
+    showAllChild();
 }
 
 void CenterAndEdgePointItem::focusChanged(QGraphicsItem* newFocusItem,
@@ -102,22 +100,67 @@ void CenterAndEdgePointItem::focusChanged(QGraphicsItem* newFocusItem,
     Q_UNUSED(reason);
     if (oldFocusItem == this)
     {
-        if (newFocusItem == m_center)
+        if (!isChildItem(newFocusItem))
         {
-            centerFocusIn();
-            return;
-        }
-        else if (newFocusItem == m_edge)
-        {
-            edgeFocusIn();
-            return;
-        }
-        else
-        {
-            m_center->hide();
-            m_edge->hide();
+            qDebug() << "hide all child";
+            hideAllChild();
         }
     }
 }
+
+bool CenterAndEdgePointItem::isChildItem(QGraphicsItem* item)
+{
+    QList<QGraphicsItem*> childs = this->childItems();
+    for (auto& child : childs)
+    {
+        if (child == item)
+            return true;
+    }
+    return false;
+}
+
+void CenterAndEdgePointItem::hideAllChild()
+{
+    QList<QGraphicsItem*> childs = this->childItems();
+    for (auto& child : childs)
+    {
+        child->hide();
+    }
+}
+
+void CenterAndEdgePointItem::showAllChild()
+{
+    QList<QGraphicsItem*> childs = this->childItems();
+    for (auto& child : childs)
+    {
+        child->show();
+    }
+}
+
+
+void CenterAndEdgePointItem::showChildExcept(QGraphicsItem* item)
+{
+    QList<QGraphicsItem*> childs = this->childItems();
+    for (auto& child : childs)
+    {
+        if (item != child)
+        {
+            child->show();
+        }
+    }
+}
+
+void CenterAndEdgePointItem::hideChildExcept(QGraphicsItem* item)
+{
+    QList<QGraphicsItem*> childs = this->childItems();
+    for (auto& child : childs)
+    {
+        if (item != child)
+        {
+            child->hide();
+        }
+    }
+}
+
 
 } // End of ADVE

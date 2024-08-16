@@ -22,12 +22,14 @@ private slots:
     void addEllipse();
     void addSquare();
     void addRectangle();
+    void addRoundedRectangle();
 
 private:
     QPushButton* addCircleBtn;
     QPushButton* addEllipseBtn;
     QPushButton* addSquareBtn;
     QPushButton* addRectangleBtn;
+    QPushButton* addRoundedRectangleBtn;
     QGraphicsScene* scene;
     QGraphicsView*  view;
     QVBoxLayout* primeLayout;

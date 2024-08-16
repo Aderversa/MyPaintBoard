@@ -1,4 +1,5 @@
 #include "AbstractShapeItem.h"
+#include <QPainter>
 
 namespace ADVE{
 
@@ -26,6 +27,12 @@ void AbstractShapeItem::focusOutEvent(QFocusEvent* event)
 {
     QAbstractGraphicsShapeItem::focusOutEvent(event);
     this->setPen(m_pen_noSelected);
+}
+
+void AbstractShapeItem::drawBoundingRect(QPainter* painter)
+{
+    painter->setPen(rectPen);
+    painter->drawRect(this->boundingRect());
 }
 
 }
