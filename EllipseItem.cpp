@@ -26,7 +26,8 @@ void EllipseItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->setPen(this->pen());
     painter->setBrush(this->brush());
     painter->drawEllipse(this->boundingRect());
-    this->drawBoundingRect(painter);
+    if(hasFocus())
+        this->drawBoundingRect(painter);
 }
 
 }

@@ -26,7 +26,8 @@ void CircleItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->setPen(this->pen());
     painter->setBrush(this->brush());
     painter->drawEllipse(boundingRect());
-    drawBoundingRect(painter);
+    if(hasFocus())
+        drawBoundingRect(painter);
 }
 
 }

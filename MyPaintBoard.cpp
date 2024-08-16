@@ -22,6 +22,7 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
     , view(new QGraphicsView(scene))
     , primeLayout(new QVBoxLayout(this))
 {
+    scene->setSceneRect(0, 0, 1024, 512);
     QHBoxLayout* buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(addCircleBtn);
     buttonsLayout->addWidget(addEllipseBtn);
@@ -41,6 +42,10 @@ MyPaintBoard::MyPaintBoard(QWidget *parent)
 
 MyPaintBoard::~MyPaintBoard()
 {
+    if(view)
+        delete view;
+    if(scene)
+        delete scene;
 }
 
 
