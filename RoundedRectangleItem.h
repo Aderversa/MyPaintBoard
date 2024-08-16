@@ -16,6 +16,7 @@ protected slots:
     void controlMove(QPointF difference);
     void controlFocusIn();
     void controlFocusOut();
+    virtual void edgeMove(QPointF difference) override;
 
 protected:
     AtomPointItem* m_control;

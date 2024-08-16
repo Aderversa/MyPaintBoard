@@ -88,19 +88,12 @@ void MyPaintBoard::addRoundedRectangle()
 
 void MyPaintBoard::deleteFocusItem()
 {
-    QGraphicsItem* item = scene->focusItem();
-    if (item) {
-        scene->removeItem(item);
-        delete item;
-    }
-    /*
     if (lastFocusItem) {
         scene->removeItem(lastFocusItem);
         delete lastFocusItem;
         lastFocusItem = nullptr;
         scene->update();
     }
-*/
 }
 
 void MyPaintBoard::getLastFocusItem(QGraphicsItem* newFocusItem,
