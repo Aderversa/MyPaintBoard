@@ -14,10 +14,7 @@ int main(int argc, char *argv[])
 {
     using namespace ADVE;
     QApplication a(argc, argv);
-    SquareItem item(QPointF(0, 0), QPointF(40, 40)) ;
-    QGraphicsScene scene;
-    scene.addItem(&item);
-    QGraphicsView view(&scene);
-    view.show();
+    MyPaintBoard w;
+    w.show();
     return a.exec();
 }

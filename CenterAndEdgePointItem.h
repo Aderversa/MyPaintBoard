@@ -23,7 +23,7 @@ protected:
     AtomPointItem* m_edge;
     QPen rectPen;
 
-private slots:
+protected slots:
     virtual void centerMove(QPointF difference);
     virtual void edgeMove(QPointF difference);
     void centerFocusIn();

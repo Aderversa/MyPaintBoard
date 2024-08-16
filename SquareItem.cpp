@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QDebug>
 
 namespace ADVE {
 
@@ -13,7 +14,9 @@ SquareItem::SquareItem(const QPointF& center, const QPointF& edge, CenterAndEdge
 QRectF SquareItem::boundingRect() const
 {
     QPointF edge   = m_edge->m_point;
-    return QRectF(-edge, edge);
+    QPointF bottomRight(qAbs(edge.x()), qAbs(edge.y()));
+    QPointF topLeft(-qAbs(edge.x()), -qAbs(edge.y()));
+    return QRectF(topLeft, bottomRight);
 }
 
 void SquareItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -27,6 +30,7 @@ void SquareItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void SquareItem::edgeMove(QPointF difference)
 {
+    qDebug() << "SquareItem EdgeMove";
     m_edge->m_point = m_edge->m_point + difference;
     m_edge->m_point.setX((m_edge->m_point.x() + m_edge->m_point.y()) / qreal(2));
     m_edge->m_point.setY(m_edge->m_point.x());
